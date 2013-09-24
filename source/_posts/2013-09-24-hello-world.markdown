@@ -10,8 +10,6 @@ author: Logan Hasson
 
 Hi, kids. The name's Logan. Let's see what happens when I go ahead and publish this post.
 
-Fingers crossed.
+...
 
-<!-- more -->
-
-Click bait.
+Look, it worked! More soon.
