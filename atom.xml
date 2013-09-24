@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[logan tries to code.]]></title>
+  <title><![CDATA[logan computes.]]></title>
   <link href="http://loganhasson.github.io/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2013-09-24T17:48:33-04:00</updated>
+  <updated>2013-09-24T18:10:25-04:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
