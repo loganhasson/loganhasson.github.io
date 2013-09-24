@@ -1,0 +1,11 @@
+---
+layout: post
+title: "hello world"
+date: 2013-09-24 16:48
+comments: true
+categories: 
+---
+
+Hi, kids. The name's Logan. Let's see what happens when I go ahead and publish this post.
+
+Fingers crossed.
