@@ -4,7 +4,7 @@
   <title><![CDATA[logan computes.]]></title>
   <link href="http://loganhasson.github.io/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2013-09-24T18:14:37-04:00</updated>
+  <updated>2013-09-24T18:37:41-04:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -20,12 +20,9 @@
     <id>http://loganhasson.github.io/blog/2013/09/24/hello-world</id>
     <content type="html"><![CDATA[<p>Hi, kids. The name&rsquo;s Logan. Let&rsquo;s see what happens when I go ahead and publish this post.</p>
 
-<p>Fingers crossed.</p>
+<p>&hellip;</p>
 
-<!-- more -->
-
-
-<p>Click bait.</p>
+<p>Look, it worked! More soon.</p>
 ]]></content>
   </entry>
   

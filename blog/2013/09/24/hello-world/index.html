@@ -9,7 +9,7 @@
   <meta name="author" content="Logan Hasson">
 
   
-  <meta name="description" content="Hi, kids. The name&rsquo;s Logan. Let&rsquo;s see what happens when I go ahead and publish this post. Fingers crossed. Click bait.
+  <meta name="description" content="Hi, kids. The name&rsquo;s Logan. Let&rsquo;s see what happens when I go ahead and publish this post. &hellip; Look, it worked! More soon.
 ">
   
 
@@ -94,12 +94,9 @@
 
 <div class="entry-content"><p>Hi, kids. The name&rsquo;s Logan. Let&rsquo;s see what happens when I go ahead and publish this post.</p>
 
-<p>Fingers crossed.</p>
+<p>&hellip;</p>
 
-<!-- more -->
-
-
-<p>Click bait.</p>
+<p>Look, it worked! More soon.</p>
 </div>
 
 
@@ -157,6 +154,35 @@
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/loganhasson">@loganhasson</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'loganhasson',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
