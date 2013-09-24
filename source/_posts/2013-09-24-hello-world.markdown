@@ -3,6 +3,9 @@ layout: post
 title: "hello world"
 date: 2013-09-24 16:48
 comments: true
+sharing: true
+footer: true
+author: Logan Hasson
 categories: 
 ---
 
