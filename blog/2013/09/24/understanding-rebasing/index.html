@@ -99,13 +99,13 @@
 
 <p>Let&rsquo;s, for a second, imagine we have a repo that looks something like this:</p>
 
-<p><img src="../images/repo-1.jpg" alt="A possible Git repository" /></p>
+<p><img src="/images/repo-1.jpg" alt="A possible Git repository" /></p>
 
 <p>Now, let&rsquo;s throw out all we know about rebasing (or think we know about rebasing), and just concentrate on what the command actually says. If we rebase <code>feature</code> onto <code>master</code>, we are literally changing the base (or parent!) of <code>feature</code>.</p>
 
 <p>Let&rsquo;s look at the repo again, but this time with a bit more descriptors:</p>
 
-<p><img src="../images/repo-2.jpg" alt="A more verbose Git repository" /></p>
+<p><img src="/images/repo-2.jpg" alt="A more verbose Git repository" /></p>
 
 <p>As it stands, <code>feature</code> begins it&rsquo;s life as a child of our second commit. If we <code>rebase</code> it onto <code>master</code> we are essentially saying, &ldquo;Nope, let&rsquo;s rewrite history. Let&rsquo;s pretend that <code>feature</code> began it&rsquo;s life as a child of our fifth commit (the most current commit in the <code>master</code> branch).&rdquo; So to make this rebase happen, we run the following commands:</p>
 
@@ -119,7 +119,7 @@
 
 <p>Now, our repo looks like this:</p>
 
-<p><img src="../images/repo-3.jpg" alt="A Git repository after rebasing" /></p>
+<p><img src="/images/repo-3.jpg" alt="A Git repository after rebasing" /></p>
 
 <p>Woah! Now we have a nice clean history (it&rsquo;s all linear and stuff!), but <code>feature</code> is ahead of <code>master</code>. Why is that?</p>
 
@@ -143,11 +143,11 @@
 
 <p>Let&rsquo;s look at another version of our original repo, but with some files added to the mix. (Each time you see a file name next to a commit, this means the file was created and commited in that commit. These are simplistic commits for explanation purposes.)</p>
 
-<p><img src="../images/repo-4.jpg" alt="A Git repository with some files" /></p>
+<p><img src="/images/repo-4.jpg" alt="A Git repository with some files" /></p>
 
 <p>Cool. Now let&rsquo;s look at the same repository, but this time with the files carried through from one commit to the next. In other words, now we&rsquo;ll look at what files each commit knows about:</p>
 
-<p><img src="../images/repo-5.jpg" alt="A Git repository with some files and inheritance" /></p>
+<p><img src="/images/repo-5.jpg" alt="A Git repository with some files and inheritance" /></p>
 
 <p>Now, if we created a new branch off of <code>master</code> right now, what files would it inherit?</p>
 
@@ -155,13 +155,13 @@
 
 <p>So if we rebase a branch onto <code>master</code> now, it too would know about those files. (It&rsquo;s new parent is our current <code>master</code> branch, and thus inherits everything from that branch.)</p>
 
-<p><img src="../images/repo-6.jpg" alt="A Git repository with some files and inheritance after rebase" /></p>
+<p><img src="/images/repo-6.jpg" alt="A Git repository with some files and inheritance after rebase" /></p>
 
 <p>But if you notice from that image above, our <code>master</code> branch has no clue that <em>files 4, 5, 6, and 7</em> exist. Rebasing our <code>feature</code> branch, which does know about those files, onto <code>master</code> just means that now <code>feature</code> knows about <em>files 1, 2, 3, 8, 9, and 10</em>, just as any new branch would at this point!</p>
 
 <p>Aha! So in order to catch <code>master</code> up on all the lovely things that we&rsquo;ve been working on in <code>feature</code> branch, we still need to merge after the rebase is complete. And then, we get this:</p>
 
-<p><img src="../images/repo-7.jpg" alt="A Git repository after rebase and merge" /></p>
+<p><img src="/images/repo-7.jpg" alt="A Git repository after rebase and merge" /></p>
 
 <p>But, bonus side effect: we don&rsquo;t have to worry about conflicts. Sweet.</p>
 
