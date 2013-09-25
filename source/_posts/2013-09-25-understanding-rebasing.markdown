@@ -32,6 +32,8 @@ git rebase master
 
 What Git does, to rewrite history, is take every commit between **C2** and **C5** (inclusive) and apply it to the `feature` branch. Because, for the `feature` branch to have a new base, it needs to know the whole history of that particlar base (parent).
 
+(Essentially, `feature` needs to get caught up. And for that to happen, it needs to "know" everything the `master` branch "knows" up until the current moment. And how can that happen? Git has to, one by one, apply every change (commit) in `master`'s history to `feature`.)
+
 Now, our repo looks like this:
 
 ![A Git repository after rebasing](/images/repo-3.jpg)
