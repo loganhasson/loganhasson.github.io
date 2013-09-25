@@ -4,7 +4,7 @@
   <title><![CDATA[logan computes.]]></title>
   <link href="http://loganhasson.github.io/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2013-09-24T18:37:41-04:00</updated>
+  <updated>2013-09-25T01:13:49-04:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -12,6 +12,89 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[understanding rebasing]]></title>
+    <link href="http://loganhasson.github.io/blog/2013/09/24/understanding-rebasing/"/>
+    <updated>2013-09-24T16:48:00-04:00</updated>
+    <id>http://loganhasson.github.io/blog/2013/09/24/understanding-rebasing</id>
+    <content type="html"><![CDATA[<p>Today was full of pulling and fetching and branching and merging and commiting and, yes, the dreaded <strong>rebasing</strong>. I&rsquo;ll admit: before today, though I&rsquo;d read about it on multiple occasions, rebasing in Git still made my brain physically hurt. And even as today wore on, I found myself more and more perplexed by this scary, repo-busting command.</p>
+
+<p>Until I had an epiphany.</p>
+
+<p>Git rebasing makes sense when you realize that <em>it does exactly what the name says it&rsquo;ll do.</em> Stick with me here.</p>
+
+<p>Let&rsquo;s, for a second, imagine we have a repo that looks something like this:</p>
+
+<p><img src="../images/repo-1.jpg" alt="A possible Git repository" /></p>
+
+<p>Now, let&rsquo;s throw out all we know about rebasing (or think we know about rebasing), and just concentrate on what the command actually says. If we rebase <code>feature</code> onto <code>master</code>, we are literally changing the base (or parent!) of <code>feature</code>.</p>
+
+<p>Let&rsquo;s look at the repo again, but this time with a bit more descriptors:</p>
+
+<p><img src="../images/repo-2.jpg" alt="A more verbose Git repository" /></p>
+
+<p>As it stands, <code>feature</code> begins it&rsquo;s life as a child of our second commit. If we <code>rebase</code> it onto <code>master</code> we are essentially saying, &ldquo;Nope, let&rsquo;s rewrite history. Let&rsquo;s pretend that <code>feature</code> began it&rsquo;s life as a child of our fifth commit (the most current commit in the <code>master</code> branch).&rdquo; So to make this rebase happen, we run the following commands:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout feature
+</span><span class='line'>git rebase master</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What Git does, to rewrite history, is take every commit between <strong>C2</strong> and <strong>C5</strong> (inclusive) and apply it to the <code>feature</code> branch. Because, for the <code>feature</code> branch to have a new base, it needs to know the whole history of that particlar base (parent).</p>
+
+<p>Now, our repo looks like this:</p>
+
+<p><img src="../images/repo-3.jpg" alt="A Git repository after rebasing" /></p>
+
+<p>Woah! Now we have a nice clean history (it&rsquo;s all linear and stuff!), but <code>feature</code> is ahead of <code>master</code>. Why is that?</p>
+
+<p>This is what initially confused the heck out of me, once I thought I understood rebasing. There&rsquo;s two things to keep in mind for this to make sense:</p>
+
+<ul>
+<li>The whole &ldquo;rebase onto&rdquo; nomenclature is, in and of itself, somewhat confusing.</li>
+<li>If we hadn&rsquo;t rebased or merged, the <code>master</code> branch would never have any concept of the <code>feature</code> branch after our second commit.</li>
+</ul>
+
+
+<p>Let&rsquo;s tackle these points one at a time.</p>
+
+<p>1) <em>The whole &ldquo;rebase onto&rdquo; nomenclature is, in and of itself, somewhat confusing.</em></p>
+
+<p>Here&rsquo;s the thing. Everything I&rsquo;ve written before this is based upon the fact that the <code>rebase</code> command actually does what it&rsquo;s name implies. Cool. However, when we add the word &ldquo;onto&rdquo; into the mix, things get confusing. To me, <code>rebase onto</code> (combined with the myriad descriptions of rebasing as the rewinding of and playing back of commits onto one branch or another) makes it seem as if the branch being, erm, rebased onto, is being acted upon in some way.</p>
+
+<p><strong>It isn&rsquo;t.</strong></p>
+
+<p>2) <em>If we hadn&rsquo;t rebased or merged, the <code>master</code> branch would never have any concept of the <code>feature</code> branch after our second commit.</em></p>
+
+<p>Let&rsquo;s look at another version of our original repo, but with some files added to the mix. (Each time you see a file name next to a commit, this means the file was created and commited in that commit. These are simplistic commits for explanation purposes.)</p>
+
+<p><img src="../images/repo-4.jpg" alt="A Git repository with some files" /></p>
+
+<p>Cool. Now let&rsquo;s look at the same repository, but this time with the files carried through from one commit to the next. In other words, now we&rsquo;ll look at what files each commit knows about:</p>
+
+<p><img src="../images/repo-5.jpg" alt="A Git repository with some files and inheritance" /></p>
+
+<p>Now, if we created a new branch off of <code>master</code> right now, what files would it inherit?</p>
+
+<p>If you said <em>files 1, 2, 3, 8, 9, and 10</em>, then you&rsquo;d be right.</p>
+
+<p>So if we rebase a branch onto <code>master</code> now, it too would know about those files. (It&rsquo;s new parent is our current <code>master</code> branch, and thus inherits everything from that branch.)</p>
+
+<p><img src="../images/repo-6.jpg" alt="A Git repository with some files and inheritance after rebase" /></p>
+
+<p>But if you notice from that image above, our <code>master</code> branch has no clue that <em>files 4, 5, 6, and 7</em> exist. Rebasing our <code>feature</code> branch, which does know about those files, onto <code>master</code> just means that now <code>feature</code> knows about <em>files 1, 2, 3, 8, 9, and 10</em>, just as any new branch would at this point!</p>
+
+<p>Aha! So in order to catch <code>master</code> up on all the lovely things that we&rsquo;ve been working on in <code>feature</code> branch, we still need to merge after the rebase is complete. And then, we get this:</p>
+
+<p><img src="../images/repo-7.jpg" alt="A Git repository after rebase and merge" /></p>
+
+<p>But, bonus side effect: we don&rsquo;t have to worry about conflicts. Sweet.</p>
+
+<p>Phew. Git rocks.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[hello world]]></title>
