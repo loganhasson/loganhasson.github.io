@@ -117,6 +117,8 @@
 
 <p>What Git does, to rewrite history, is take every commit between <strong>C2</strong> and <strong>C5</strong> (inclusive) and apply it to the <code>feature</code> branch. Because, for the <code>feature</code> branch to have a new base, it needs to know the whole history of that particlar base (parent).</p>
 
+<p>(Essentially, <code>feature</code> needs to get caught up. And for that to happen, it needs to &ldquo;know&rdquo; everything the <code>master</code> branch &ldquo;knows&rdquo; up until the current moment. And how can that happen? Git has to, one by one, apply every change (commit) in <code>master</code>&rsquo;s history to <code>feature</code>.)</p>
+
 <p>Now, our repo looks like this:</p>
 
 <p><img src="/images/repo-3.jpg" alt="A Git repository after rebasing" /></p>
