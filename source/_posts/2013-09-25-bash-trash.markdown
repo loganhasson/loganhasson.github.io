@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "understanding rebasing"
-date: 2013-09-24 16:48
+title: "bash trash"
+date: 2013-09-25 16:48
 comments: true
 sharing: true
 footer: false
