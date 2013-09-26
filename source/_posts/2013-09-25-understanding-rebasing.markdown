@@ -23,14 +23,14 @@ Let's look at the repo again, but this time with a bit more descriptors:
 
 ![A more verbose Git repository](/images/repo-2.jpg)
 
-As it stands, `feature` begins it's life as a child of our second commit. If we `rebase` it onto `master` we are essentially saying, "Nope, let's rewrite history. Let's pretend that `feature` began it's life as a child of our fifth commit (the most current commit in the `master` branch)." So to make this rebase happen, we run the following commands:
+As it stands, `feature` begins it's life as a child of our second commit. If we `rebase` it onto `master` we are essentially saying, "Nope, let's rewrite history. Let's pretend that `feature` began it's life as a child of our sixth commit (the most current commit in the `master` branch)." So to make this rebase happen, we run the following commands:
 
 ```
 git checkout feature
 git rebase master
 ```
 
-What Git does, to rewrite history, is take every commit between **C2** and **C5** (inclusive) and apply it to the `feature` branch. Because, for the `feature` branch to have a new base, it needs to know the whole history of that particlar base (parent).
+What Git does, to rewrite history, is take every commit between **C2** and **C6** (inclusive) and apply it to the `feature` branch. Because, for the `feature` branch to have a new base, it needs to know the whole history of that particlar base (parent).
 
 (Essentially, `feature` needs to get caught up. And for that to happen, it needs to "know" everything the `master` branch "knows" up until the current moment. And how can that happen? Git has to, one by one, apply every change (commit) in `master`'s history to `feature`.)
 
