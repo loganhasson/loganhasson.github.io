@@ -1,8 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://loganhasson.github.io/blog/2013/09/24/bash-trash/</loc>
+        <lastmod>2013-09-25T21:52:48-04:00</lastmod>
+    </url>
+    <url>
         <loc>http://loganhasson.github.io/blog/2013/09/24/hello-world/</loc>
-        <lastmod>2013-09-25T11:07:54-04:00</lastmod>
+        <lastmod>2013-09-25T21:39:52-04:00</lastmod>
     </url>
     <url>
         <loc>http://loganhasson.github.io/blog/2013/09/24/understanding-rebasing/</loc>
@@ -10,7 +14,7 @@
     </url>
     <url>
         <loc>http://loganhasson.github.io/blog/archives/</loc>
-        <lastmod>2013-09-25T20:06:00-04:00</lastmod>
+        <lastmod>2013-09-25T21:52:48-04:00</lastmod>
     </url>
     <url>
         <loc>http://loganhasson.github.io/blog/categories/</loc>
@@ -18,7 +22,7 @@
     </url>
     <url>
         <loc>http://loganhasson.github.io/</loc>
-        <lastmod>2013-09-25T20:06:00-04:00</lastmod>
+        <lastmod>2013-09-25T21:52:48-04:00</lastmod>
     </url>
     <url>
         <loc>http://loganhasson.github.io/robots.txt</loc>

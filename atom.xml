@@ -4,7 +4,7 @@
   <title><![CDATA[logan computes.]]></title>
   <link href="http://loganhasson.github.io/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2013-09-25T20:06:47-04:00</updated>
+  <updated>2013-09-25T21:52:59-04:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -110,6 +110,109 @@
 <p>Look, it worked!</p>
 
 <p>Go checkout my first <a href="http://loganhasson.github.io/blog/2013/09/24/understanding-rebasing/">real post</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[understanding rebasing]]></title>
+    <link href="http://loganhasson.github.io/blog/2013/09/24/bash-trash/"/>
+    <updated>2013-09-24T16:48:00-04:00</updated>
+    <id>http://loganhasson.github.io/blog/2013/09/24/bash-trash</id>
+    <content type="html"><![CDATA[<p>This isn&rsquo;t too terribly exciting, but I&rsquo;ve been on a big &ldquo;write-everything-in-fact-<em>all-the-things</em>-as-functions-for-bash&rdquo; kick these last couple of days, and I am pretty happy with my latest one. Though I rarely find myself in the position of having files in my Trash any more, I still occasionally drag something in there from my downloads folder (since they are right next door to one another on my dock). I hate, hate, hate, hate, hate having a cluttered Trash icon, so I empty it all the time.</p>
+
+<p>While it&rsquo;s totally possible to just press <code>Shift+Command+Delete</code> while in Finder, I&rsquo;d much rather not have to switch out of terimal if possible. So, I wrote this little function and threw it in my .bash_profile. Now, whenever I want to empty the trash, I just have to type <code>empty</code>. It&rsquo;s lovely. And as a bonus, I even get to see how many files were deleted.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function empty () {
+</span><span class='line'>  pushd ~/.Trash &gt; /dev/null
+</span><span class='line'>  tmp=$(rm -rfv * | wc -l | sed -e 's/^[ \t]*//')
+</span><span class='line'>  if [ $tmp == "1" ]; then
+</span><span class='line'>    echo "$tmp file was removed."
+</span><span class='line'>  else
+</span><span class='line'>    echo "$tmp files were removed."
+</span><span class='line'>  fi
+</span><span class='line'>  pushd &gt; /dev/null
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here&rsquo;s a commented version if you&rsquo;re interested. (Note, I looked up the regular expression for one of the commands. Regular expressions are hard.)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Commented Version
+</span><span class='line'># USE: empty
+</span><span class='line'> 
+</span><span class='line'>function empty () {
+</span><span class='line'>  # push the CWD into the stack and change to the ~/.Trash directory. Pipe this output to /dev/null so it doesn't print to
+</span><span class='line'>  # the console
+</span><span class='line'>
+</span><span class='line'>  pushd ~/.Trash &gt; /dev/null
+</span><span class='line'>
+</span><span class='line'>  # assign a variable, tmp, to the following
+</span><span class='line'>  # rm -rfv * deletes everything in the trash. the -v flag tells it to echo each file as it deletes
+</span><span class='line'>  # this is then piped to wc -l, which counts the lines that were outputted
+</span><span class='line'>  # that count gets a bunch of whitespace put in front of it for some reason, and is piped to the stream editor (sed), and the
+</span><span class='line'>  # -e flag lets us pass a fancy regex to strip the leading whitespace
+</span><span class='line'>
+</span><span class='line'>  tmp=$(rm -rfv * | wc -l | sed -e 's/^[ \t]*//')
+</span><span class='line'>
+</span><span class='line'>  # check to see if $tmp is 1, if so we want to echo singular "file"
+</span><span class='line'>
+</span><span class='line'>  if [ $tmp == "1" ]; then
+</span><span class='line'>    echo "$tmp file was removed."
+</span><span class='line'>  else
+</span><span class='line'>
+</span><span class='line'>  # otherwise echo plural "files"
+</span><span class='line'>
+</span><span class='line'>    echo "$tmp files were removed."
+</span><span class='line'>  fi
+</span><span class='line'>
+</span><span class='line'>  # pushd again brings us back to the directory we were in before running the command, and the output is again piped to
+</span><span class='line'>  # /dev/null
+</span><span class='line'>
+</span><span class='line'>  pushd &gt; /dev/null
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
