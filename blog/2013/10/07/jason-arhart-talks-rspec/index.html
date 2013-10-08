@@ -1,0 +1,180 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Jason Arhart Talks RSpec - logan computes.</title>
+	<meta name="author" content="Logan Hasson">
+
+	
+	<meta name="description" content="Jason Arhart Talks RSpec We&rsquo;ve been spending a lot of time thinking about and implementing test-driven development
+using RSpec at Flatiron &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="logan computes." type="application/atom+xml">
+	
+	<link rel="canonical" href="http://loganhasson.github.io/blog/2013/10/07/jason-arhart-talks-rspec/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("loganhasson@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1><a href="/">logan computes.</a></h1>
+  
+    <h2>diving into code</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/loganhasson" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/loganhasson" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Jason Arhart Talks RSpec</h1>
+	<div class="entry-content" itemprop="articleBody"><p>We&rsquo;ve been spending a lot of time thinking about and implementing test-driven development
+using RSpec at <a href="http://www.flatironschool.com">Flatiron School</a> these past several days.
+While I certainly love the <em>idea</em> of loving TDD, I&rsquo;ve found myself struggling to understand exactly
+how to effectively start dipping my toe into the Ruby testing pool.</p>
+
+<p>It&rsquo;s not that I don&rsquo;t grasp the concept of testing first. Rather, I haven&rsquo;t been able to
+figure out the appropriate tests to write before I actually start coding. I often find myself combining
+the following steps:</p>
+
+<pre><code>1. Pseudo coding a solution to the programming problem
+2. Thinking of how I could test that pseudo code
+3. Thinking of how I could turn that pseudo code into Ruby
+4. Thinking of tests to write to test that code
+</code></pre>
+
+<p>Sadly, this creates a very un-TDD workflow. I either write tests that are completely
+unrelated to my eventual code, or I end up writing code and then creating tests that
+conform to that code.</p>
+
+<p>I came across a wonderful <a href="https://speakerdeck.com/lvrug/rspec-for-beginners-jason-arhart">deck by Jason Arhart</a> today, though,
+that has finally (sort of) given me a sense of how to approach this whole TDD thing. This slide in particular was my &ldquo;aha&rdquo;
+moment&hellip;</p>
+
+<script async class="speakerdeck-embed" data-slide="11" data-id="ec123320ddad0130679a56e32e49313d" data-ratio="1.74446337308348" src="//speakerdeck.com/assets/embed.js"></script>
+
+
+<p>It seems so simple, but the line &ldquo;focus on <strong>what</strong> before <strong>how</strong>&rdquo; is quite a brilliant way of putting it.</p>
+
+<p>I&rsquo;d been struggling to write effective RSpec tests (let alone even come up with tests <em>at all</em>) because
+I was approaching the whole process with a &ldquo;how&rdquo; mindset. I thought of my tests in the context of how I&rsquo;d be solving the
+programming problem that was before me, rather than as a way to clearly document and test the &ldquo;what&rdquo; of the problem. The distinction is nuanced, but the way to properly test is to think, &ldquo;what should my methods/objects/whatevers be doing?&rdquo; instead of &ldquo;how am I going to get my methods/objects/whatevers to solve this problem and also prove to some test that they are working?&rdquo;</p>
+
+<p>Of course, I still couldn&rsquo;t whip together a good test suite right now, but this presentation has given me much more clarity as to how I should actually approach writing passable (hah!) test stuites in the near future.</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Logan Hasson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

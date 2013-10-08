@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby, | logan computes.]]></title>
+  <link href="http://loganhasson.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://loganhasson.github.io/"/>
+  <updated>2013-10-07T23:53:34-04:00</updated>
+  <id>http://loganhasson.github.io/</id>
+  <author>
+    <name><![CDATA[Logan Hasson]]></name>
+    <email><![CDATA[loganhasson@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Jason Arhart Talks RSpec]]></title>
+    <link href="http://loganhasson.github.io/blog/2013/10/07/jason-arhart-talks-rspec/"/>
+    <updated>2013-10-07T23:31:00-04:00</updated>
+    <id>http://loganhasson.github.io/blog/2013/10/07/jason-arhart-talks-rspec</id>
+    <content type="html"><![CDATA[<p>We&rsquo;ve been spending a lot of time thinking about and implementing test-driven development
+using RSpec at <a href="http://www.flatironschool.com">Flatiron School</a> these past several days.
+While I certainly love the <em>idea</em> of loving TDD, I&rsquo;ve found myself struggling to understand exactly
+how to effectively start dipping my toe into the Ruby testing pool.</p>
+
+<p>It&rsquo;s not that I don&rsquo;t grasp the concept of testing first. Rather, I haven&rsquo;t been able to
+figure out the appropriate tests to write before I actually start coding. I often find myself combining
+the following steps:</p>
+
+<pre><code>1. Pseudo coding a solution to the programming problem
+2. Thinking of how I could test that pseudo code
+3. Thinking of how I could turn that pseudo code into Ruby
+4. Thinking of tests to write to test that code
+</code></pre>
+
+<p>Sadly, this creates a very un-TDD workflow. I either write tests that are completely
+unrelated to my eventual code, or I end up writing code and then creating tests that
+conform to that code.</p>
+
+<p>I came across a wonderful <a href="https://speakerdeck.com/lvrug/rspec-for-beginners-jason-arhart">deck by Jason Arhart</a> today, though,
+that has finally (sort of) given me a sense of how to approach this whole TDD thing. This slide in particular was my &ldquo;aha&rdquo;
+moment&hellip;</p>
+
+<script async class="speakerdeck-embed" data-slide="11" data-id="ec123320ddad0130679a56e32e49313d" data-ratio="1.74446337308348" src="http://loganhasson.github.io//speakerdeck.com/assets/embed.js"></script>
+
+
+<p>It seems so simple, but the line &ldquo;focus on <strong>what</strong> before <strong>how</strong>&rdquo; is quite a brilliant way of putting it.</p>
+
+<p>I&rsquo;d been struggling to write effective RSpec tests (let alone even come up with tests <em>at all</em>) because
+I was approaching the whole process with a &ldquo;how&rdquo; mindset. I thought of my tests in the context of how I&rsquo;d be solving the
+programming problem that was before me, rather than as a way to clearly document and test the &ldquo;what&rdquo; of the problem. The distinction is nuanced, but the way to properly test is to think, &ldquo;what should my methods/objects/whatevers be doing?&rdquo; instead of &ldquo;how am I going to get my methods/objects/whatevers to solve this problem and also prove to some test that they are working?&rdquo;</p>
+
+<p>Of course, I still couldn&rsquo;t whip together a good test suite right now, but this presentation has given me much more clarity as to how I should actually approach writing passable (hah!) test stuites in the near future.</p>
+]]></content>
+  </entry>
+  
+</feed>
