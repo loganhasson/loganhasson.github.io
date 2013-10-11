@@ -104,92 +104,37 @@ object.send("method_as_string", arguments)
 
 So in this case, our `object` is our instance of the `ChatterBox` class, and we send it, as a method, the word that matched one of our possible commands. Then, we send the rest of the sentence along as arguments. `.send` takes care of all of this for us. It converts the `string` version of the command into a symbol and uses that to call the method of the same name that we've written into the class. To that method, it passes the other non-matching part of the sentence.
 
+In other words, say we do something like this:
+
+```ruby
+c = ChatterBox.new
+c.call("What are you doing tonight?")
+```
+
+In the sentence we passed to the `.call` method, there is one of our commands: 'What'. `.send` then gets a hold of this in our `.call` method and turns it into this:
+
+```ruby
+c.send("what", ["are", "you", "doing", "tonight"])
+```
+
+And remembering how the `.send` method works, we know that this is going to call a method, `.what` and send it `["are", "you", "doing", "tonight"]` as an argument.
+
+So it's essentially doing this:
+
+```ruby
+c.what(["are", "you", "doing", "tonight"])
+```
+
+But we didn't actually have to hard-code in a call to that `.what` method.
+
 Pretty neat, right? Based on a passed in sentence, we can fire off a specific method and then use that method to parse a sentence in any way that we want.
 
-This (reallyverymessycodethatyoushouldonlylookatforliketwosecondssoyoureyesdon'tmelt) code might look something like this:
+One of these (reallyverymessymethodsthatyoushouldonlylookatforliketwosecondssoyoureyesdon'tmelt) methods might look something like this:
 
 ```ruby
 class ChatterBox
 
   COMMANDS = [:hi, :how, :why, :when, :who, :where, :what, :bye]
-
-  def hi(args)
-    puts "Well hi there! Nice to see you. :)"
-  end
-
-  def how(args)
-    if args.include?("are") && args.include?("old")
-      puts "Younger than yo mama!"
-    elsif args.include?("are") || args.include?("you")
-      puts "I'm doing well, thanks, how about you?"
-    elsif args.include?("can")
-      puts "Hold on...lemme look that up for you. Wait. I'm bored. Go do it yourself."
-    elsif args.include?("much") && (args.include?("could") || args.include?("can"))
-      puts "If I had to guess? More than you."
-    elsif args.include?("much")
-      puts "You couldn't afford it."
-    else
-      puts "I'm not too sure how...I'm a computer, after all."
-    end
-  end
-
-  def why(args)
-    if args.include?("does") || args.include?("do")
-      puts "You know, that's pretty complicated. It probably works by magic."
-    elsif args.include?("is")
-      puts "Phew! That's a question for the ages."
-    elsif args.include?("are")
-      puts "Umm, that's kind of personal, don't you think?"
-    elsif args.include?("can") && args.include?("i")
-      puts "Because you're amazing!"
-    elsif args.include?("can") && args.include?("you")
-      puts "Because I'm a boss."
-    elsif args.include?("cant") && args.include?("i")
-      puts "Well, I didn't want to say anything, but it's probably because you're not that special."
-    elsif args.include?("cant") && args.include?("you")
-      puts "What? Of course I can! I'm a total boss. Gah."
-    elsif args.include?("cant") && args.include?("we")
-      puts "We'd never work together. It's so obvious."
-    elsif args.include?("dont")
-      puts "Uhhh...no clue."
-    else
-      puts "Why not?"
-    end
-  end
-
-  def when(args)
-    if args.include?("will")
-      puts "That's a secret, honestly. It will probably happen sooner or later."
-    elsif args.include?("should")
-      puts "You're going to have to be more specific. Time is relative, after all. Or something."
-    elsif args.include?("is")
-      puts "Wouldn't you like to know."
-    elsif args.include?("did")
-      puts "Phew. Like so long ago, I can't even comprehend."
-    else
-      puts "A long time from now."
-    end
-  end
-
-  def who(args)
-    if args.include?("am")
-      puts "How in the world could I know that? You didn't tell me your name!"
-    elsif args.include?("is")
-      puts "The guy I met the other day?"
-    else
-      puts "Uhhh, your mom?"
-    end
-  end
-
-  def where(args)
-    if args.include?("is") || args.include?("are")
-      puts "I've been looking everywhere, but I really don't know. :-("
-    elsif args.include?("can")
-      puts "Whenever you want!"
-    else
-      puts "Probably on the moon."
-    end
-  end
 
   def what(args)
     if args.include?("is") && args.include?("your")
@@ -205,29 +150,12 @@ class ChatterBox
     end
   end
 
-  def bye(args)
-    puts "Well, ok. Bye then."
-  end
-
-  def say_what
-    puts "I have no clue what you're talking about."
-  end
-
-  def call(sentence)
-    sentence.split.each_with_index do |word, i|
-      if self.class::COMMANDS.include?(word.downcase.gsub(/[.?!,']/,'').to_sym)
-        self.send("#{word.downcase.strip.gsub(/[.?!,']/,'')}", sentence.downcase.gsub(/[.?!,']/,'').split)
-        break
-      elsif i == sentence.split.length - 1
-        puts "I have no idea what you're talking about."
-      end
-    end
-  end
+  ...
 
 end
 ```
 
-I'll let you go through that and see how poorly a person can actually write a bunch of `if` statements, but it's pretty fun to run, if I do say so myself. Here's some sample output from this:
+I'll let you go through that and see how poorly a person can actually write a bunch of `if` statements, but it's pretty fun to run if you add similar methods for the other possible commands, if I do say so myself. Here's some sample output from this (ignore the syntax highlighting again):
 
 ```
 t = ChatterBox.new
@@ -254,6 +182,6 @@ t.call("Gobledygook blah pants")
 => I have no idea what you're talking about.
 ```
 
-Hey, look! We made a really pathetic AIM bot, minus AIM and the internet and other stuff. Ok, really we just made a totally useless program to create a contrived situation with which to demonstrate `.send`. Still, though, it's really awesome. `.send` is, not this program. And supremely useful if you want to dynamically call methods based on user input (or in other situations where you don't really know what method is going to be called).
+Hey, look! We made a really pathetic AIM bot, minus AIM and the internet and other stuff. Ok, really we just made a totally useless program to create a contrived example with which to demonstrate `.send`. Still, though, it's really awesome. `.send` is really awesome, to clarify, not this program. And supremely useful if you want to dynamically call methods based on user input (or in other situations where you don't really know what method is going to be called).
 
-Not too shabby, Ruby.
+Not too shabby, Ruby. Not too shabby.
