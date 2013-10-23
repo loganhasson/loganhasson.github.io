@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: erb, | logan computes.]]></title>
+  <link href="http://loganhasson.github.io/blog/categories/erb/atom.xml" rel="self"/>
+  <link href="http://loganhasson.github.io/"/>
+  <updated>2013-10-23T13:29:08-04:00</updated>
+  <id>http://loganhasson.github.io/</id>
+  <author>
+    <name><![CDATA[Logan Hasson]]></name>
+    <email><![CDATA[loganhasson@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[All Bound Up]]></title>
+    <link href="http://loganhasson.github.io/blog/2013/10/23/all-bound-up/"/>
+    <updated>2013-10-23T10:56:00-04:00</updated>
+    <id>http://loganhasson.github.io/blog/2013/10/23/all-bound-up</id>
+    <content type="html"><![CDATA[<p>When getting started with ERB (Evaluated Ruby), you&rsquo;ll undoubtedly come accross a weird
+little thing called <code>binding</code>. It won&rsquo;t pop up all the time, but you&rsquo;ll be minding your own business
+one day, reading tutorials, when suddenly you&rsquo;ll see this:</p>
+
+<p>```ruby
+require &lsquo;erb&rsquo;</p>
+
+<p>template = ERB.new(File.open(&lsquo;/blah/blah.erb&rsquo;).read)
+some_variable = &ldquo;This is a variable&rdquo;</p>
+
+<p>File.open(&lsquo;/some/html/file.html&rsquo;, &lsquo;w+&rsquo;) do |f|
+  f &lt;&lt; template.result(binding)
+end
+```</p>
+
+<p>And then you&rsquo;re like, &ldquo;Whoa, whoa, whoa, what the heck is binding?&rdquo; And then the tutorial says that you can&rsquo;t
+access <code>some_variable</code> inside your <code>'/blah/blah.erb'</code> template file unless you pass your <code>binding</code> along as an argument
+with the <code>.result</code> method.</p>
+
+<p>And then you&rsquo;re like, &ldquo;Ok, but whoa, whoa, whoa, what is binding?&rdquo; And the tutorial says that you don&rsquo;t have to
+really worry about it, and that you can do this instead:</p>
+
+<p>```ruby
+require &lsquo;erb&rsquo;</p>
+
+<p>template = ERB.new(File.open(&lsquo;/blah/blah.erb&rsquo;).read)
+@some_variable = &ldquo;This is an instance variable&rdquo;</p>
+
+<p>File.open(&lsquo;/some/html/file.html&rsquo;, &lsquo;w+&rsquo;) do |f|
+  f &lt;&lt; template.result
+end
+```</p>
+
+<p>And you get some explanation along the lines of, &ldquo;Your binding is like a snapshot of your current environment.
+If you want your <code>template.erb</code> file to have access to any local variables, you have to pass along your <code>binding</code>
+with the <code>.result</code> method. This lets your template have access to your current environment and all variables defined
+within it.&rdquo;</p>
+
+<p>And you go, &ldquo;Oh, ok. I guess that makes sense. Cool.&rdquo;</p>
+
+<p>And your friendly tutorial person ends with the note, &ldquo;But really, you can just always define instance variables
+and your template.erb file will automatically have access to them without all this passing of binding around because it elevates
+their scope.&rdquo;</p>
+
+<p>And you think you get it. And you think the concept of <code>binding</code> is really cool. But you know that it&rsquo;s weird to pass it around, so you just start whipping out instance variables, assigning them, and moving along with your day.</p>
+
+<p>Until this happens (Let&rsquo;s ignore for a second that this weird Dog knows how to make HTML&hellip;pretend it&rsquo;s a
+special class that only generates HTML):</p>
+
+<p>```ruby
+require &lsquo;erb&rsquo;</p>
+
+<p>class Dog</p>
+
+<p>  def make_me_some_html</p>
+
+<pre><code>template = ERB.new(File.open('/dog/dog_show.erb').read)
+@name = "Pooch"
+
+File.open('dog.html', 'w+') do |f|
+  f &lt;&lt; template.result
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>Dog.make_me_some_html
+```</p>
+
+<p>You open up, excitedly, <code>dog.html</code>, and&hellip;nothing. Literally nothing. No &ldquo;Pooch&rdquo;, no
+error. Nothing.</p>
+
+<p>And you go, &ldquo;Oh, well, I must have made a typo. There&rsquo;s probably an error sitting in my
+terminal.&rdquo; But there isn&rsquo;t.</p>
+
+<p>And then, after debugging for what seems like days, you try tacking on a <code>(binding)</code> to
+<code>template.result</code> as a last ditch effort to save face. So now your code looks like this:</p>
+
+<p>```ruby
+require &lsquo;erb&rsquo;</p>
+
+<p>class Dog</p>
+
+<p>  def make_me_some_html</p>
+
+<pre><code>template = ERB.new(File.open('/dog/dog_show.erb').read)
+@name = "Pooch"
+
+File.open('dog.html', 'w+') do |f|
+  f &lt;&lt; template.result(binding)
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>Dog.make_me_some_html
+```</p>
+
+<p>Huzzah! It worked. It worked! Wait&hellip;why in the world didn&rsquo;t it work before? It should have worked.</p>
+
+<p>Here&rsquo;s the thing. Binding is, indeed, a snapshot of your current environment. And before, when we defined
+instance variables and didn&rsquo;t pass our binding with <code>.result</code>, it <em>seemed</em> like they were accessible by our <code>template.erb</code>
+because they were part of our current binding. And that was true.</p>
+
+<p>The problem is, <code>.result</code> doesn&rsquo;t actually take your current binding by default. Its signature reads as follows:</p>
+
+<p><code>result(b=new_toplevel)</code></p>
+
+<p>What&rsquo;s actually going on here is our <em>top level binding</em> is being passed along with <code>.result</code> by default. And what
+is our top level binding? It&rsquo;s essentially the environment in which <code>main</code> exists. So everything that is defined in our <code>main</code> object, except for local variables, (all method signatures outside of a class, all class definitions, all instance variables &mdash;
+fun fact, <code>main</code> does indeed have instance variables!, and all other constants) get passed as a parameter of <code>.result</code> by default as our binding. It just so happened that before, our top level binding <em>was</em> our current binding.</p>
+
+<p>With this in mind, it makes sense that the above example with our <code>Dog</code> class only worked properly when we eplicitly sent
+the current binding as <code>.result</code>&rsquo;s argument. The <code>@name</code> instance variable is defined <em>within</em> the scope of the <code>make_me_some_html</code> method in the <code>Dog</code> class. It is not part of the <code>main</code> binding, and therefore doesn&rsquo;t exist in our template file without
+some help.</p>
+]]></content>
+  </entry>
+  
+</feed>

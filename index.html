@@ -9,7 +9,7 @@
 	<meta name="author" content="Logan Hasson">
 
 	
-	<meta name="description" content="Oct 10th, 2013 code,, methods,, ruby,, useless Dot(.) Send Me to the Moon One of the greatest things about Ruby is its never-ending ability to &hellip;">
+	<meta name="description" content="Oct 23rd, 2013 binding,, erb,, ruby,, scope All Bound Up When getting started with ERB (Evaluated Ruby), you&rsquo;ll undoubtedly come accross a &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,6 +104,201 @@ woopra.track();
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-23T10:56:00-04:00" data-updated="true" itemprop="datePublished">Oct 23<span>rd</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/binding/'>binding,</a>, <a class='category' href='/blog/categories/erb/'>erb,</a>, <a class='category' href='/blog/categories/ruby/'>ruby,</a>, <a class='category' href='/blog/categories/scope/'>scope</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/10/23/all-bound-up/" itemprop="url">All Bound Up</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>When getting started with ERB (Evaluated Ruby), you&rsquo;ll undoubtedly come accross a weird
+little thing called <code>binding</code>. It won&rsquo;t pop up all the time, but you&rsquo;ll be minding your own business
+one day, reading tutorials, when suddenly you&rsquo;ll see this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;erb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">template</span> <span class="o">=</span> <span class="no">ERB</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/blah/blah.erb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">)</span>
+</span><span class='line'><span class="n">some_variable</span> <span class="o">=</span> <span class="s2">&quot;This is a variable&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/some/html/file.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="n">template</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="nb">binding</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And then you&rsquo;re like, &ldquo;Whoa, whoa, whoa, what the heck is binding?&rdquo; And then the tutorial says that you can&rsquo;t
+access <code>some_variable</code> inside your <code>'/blah/blah.erb'</code> template file unless you pass your <code>binding</code> along as an argument
+with the <code>.result</code> method.</p>
+
+<p>And then you&rsquo;re like, &ldquo;Ok, but whoa, whoa, whoa, what is binding?&rdquo; And the tutorial says that you don&rsquo;t have to
+really worry about it, and that you can do this instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;erb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">template</span> <span class="o">=</span> <span class="no">ERB</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/blah/blah.erb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">)</span>
+</span><span class='line'><span class="vi">@some_variable</span> <span class="o">=</span> <span class="s2">&quot;This is an instance variable&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/some/html/file.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="n">template</span><span class="o">.</span><span class="n">result</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And you get some explanation along the lines of, &ldquo;Your binding is like a snapshot of your current environment.
+If you want your <code>template.erb</code> file to have access to any local variables, you have to pass along your <code>binding</code>
+with the <code>.result</code> method. This lets your template have access to your current environment and all variables defined
+within it.&rdquo;</p>
+
+<p>And you go, &ldquo;Oh, ok. I guess that makes sense. Cool.&rdquo;</p>
+
+<p>And your friendly tutorial person ends with the note, &ldquo;But really, you can just always define instance variables
+and your template.erb file will automatically have access to them without all this passing of binding around because it elevates
+their scope.&rdquo;</p>
+
+<p>And you think you get it. And you think the concept of <code>binding</code> is really cool. But you know that it&rsquo;s weird to pass it around, so you just start whipping out instance variables, assigning them, and moving along with your day.</p>
+
+<p>Until this happens (Let&rsquo;s ignore for a second that this weird Dog knows how to make HTML&hellip;pretend it&rsquo;s a
+special class that only generates HTML):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;erb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">make_me_some_html</span>
+</span><span class='line'>    <span class="n">template</span> <span class="o">=</span> <span class="no">ERB</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/dog/dog_show.erb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="s2">&quot;Pooch&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;dog.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="n">template</span><span class="o">.</span><span class="n">result</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Dog</span><span class="o">.</span><span class="n">make_me_some_html</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You open up, excitedly, <code>dog.html</code>, and&hellip;nothing. Literally nothing. No &ldquo;Pooch&rdquo;, no
+error. Nothing.</p>
+
+<p>And you go, &ldquo;Oh, well, I must have made a typo. There&rsquo;s probably an error sitting in my
+terminal.&rdquo; But there isn&rsquo;t.</p>
+
+<p>And then, after debugging for what seems like days, you try tacking on a <code>(binding)</code> to
+<code>template.result</code> as a last ditch effort to save face. So now your code looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;erb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">make_me_some_html</span>
+</span><span class='line'>    <span class="n">template</span> <span class="o">=</span> <span class="no">ERB</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/dog/dog_show.erb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="s2">&quot;Pooch&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;dog.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="n">template</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="nb">binding</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Dog</span><span class="o">.</span><span class="n">make_me_some_html</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Huzzah! It worked. It worked! Wait&hellip;why in the world didn&rsquo;t it work before? It should have worked.</p>
+
+<p>Here&rsquo;s the thing. Binding is, indeed, a snapshot of your current environment. And before, when we defined
+instance variables and didn&rsquo;t pass our binding with <code>.result</code>, it <em>seemed</em> like they were accessible by our <code>template.erb</code>
+because they were part of our current binding. And that was true.</p>
+
+<p>The problem is, <code>.result</code> doesn&rsquo;t actually take your current binding by default. Its signature reads as follows:</p>
+
+<p><code>result(b=new_toplevel)</code></p>
+
+<p>What&rsquo;s actually going on here is our <em>top level binding</em> is being passed along with <code>.result</code> by default. And what
+is our top level binding? It&rsquo;s essentially the environment in which <code>main</code> exists. So everything that is defined in our <code>main</code> object, except for local variables, (all method signatures outside of a class, all class definitions, all instance variables &mdash;
+fun fact, <code>main</code> does indeed have instance variables!, and all other constants) get passed as a parameter of <code>.result</code> by default as our binding. It just so happened that before, our top level binding <em>was</em> our current binding.</p>
+
+<p>With this in mind, it makes sense that the above example with our <code>Dog</code> class only worked properly when we eplicitly sent
+the current binding as <code>.result</code>&rsquo;s argument. The <code>@name</code> instance variable is defined <em>within</em> the scope of the <code>make_me_some_html</code> method in the <code>Dog</code> class. It is not part of the <code>main</code> binding, and therefore doesn&rsquo;t exist in our template file without
+some help.</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
