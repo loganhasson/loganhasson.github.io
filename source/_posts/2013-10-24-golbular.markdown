@@ -98,7 +98,7 @@ particular order? This would very quickly get out of hand.
 And this is where `Dir.glob` comes in handy. And makes you not hate loops. Everything we just did can be written in one line:
 
 ```ruby
-Dir.glob('./{a_folder,x_folder,b_folder}/*.rb').each {|f| require_relative f}
+Dir.glob('./{a_folder,x_folder,b_folder}/*.rb').each {|f| require f}
 ```
 
 `Dir.glob` is basically a regular expression matcher for file/directory paths. It doesn't handle every regex you can throw at it,
