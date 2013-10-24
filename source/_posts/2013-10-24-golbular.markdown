@@ -1,0 +1,110 @@
+---
+layout: post
+title: "Golbular"
+date: 2013-10-24 08:41
+comments: true
+categories: 
+---
+When running any Ruby application that contains more than one or two files, we generally
+find ourselves writing an `environment.rb` file to handle all of the `require`'s and
+`require_relative`'s for us. And, to be frank, this gets to be a giant pain in the ass,
+especially when you want to include files in a particular order. Luckily, there is a
+better way! Or, I guess I shouldn't say better, but way, way easier.
+
+Let's imagine we have the following directory structure.
+
+```bash
+glob
+├── a_folder
+│   ├── file_one.rb
+│   └── file_two.rb
+├── b_folder
+│   └── file_three.rb
+├── environment.rb
+└── x_folder
+    ├── file_five.rb
+    └── file_four.rb
+```
+
+Now, let's say in our `environment.rb` file, we want to include all of the subfiles in
+`a_folder`, `b_folder`, and `x_folder`. To do this, we'd have to write a loop like this:
+
+```ruby
+Dir.foreach('.') do |dir|
+  next if dir.start_with?('.')
+  if File.directory?(dir)
+    Dir.foreach(dir) do |file|
+      next if file.start_with?('.')
+      require "./#{dir}/#{file}"
+    end
+  end
+end
+```
+
+Essentially, it goes through the top level directory, skips any hidden files (those that begin with a period),
+finds everything that is a directory, and requires every file inside of each of them that isn't a hidden file.
+
+Phew.
+
+I've written a `puts` statement in every file in this directory that looks like this:
+
+```ruby
+puts "Hello from file one!"
+```
+
+But each file has it's own number in the `puts` statement.
+
+Let's run `environment.rb` and see what happens:
+
+```bash
+Hello from file one!
+Hello from file two!
+Hello from file three!
+Hello from file five!
+Hello from file four!
+```
+
+So it did what we expected...it included every file, and it did it in *folder order*. What happens, though,
+if everything working properly depended on the files in `b_folder` loading before the files in `a_folder`. Say, for instance,
+that the files in `b_folder` make use of constants that are defined in files in `a_folder`. We'd have to adjust our loop:
+
+```ruby
+folders = ["b_folder", "a_folder", "x_folder"]
+
+def require_stuff(array)
+  array.each do |folder|
+    Dir.foreach("./#{folder}") do |file|
+      next if file.start_with?('.')
+      require "./#{folder}/#{file}"
+    end
+  end
+end
+```
+
+Here, we put the loop into a method, and make an array of the folders we want to loop through. By changing the order of the
+folders, we can change the order the files are loaded in. Here's the output from running that:
+
+```bash
+Hello from file three!
+Hello from file one!
+Hello from file two!
+Hello from file five!
+Hello from file four!
+```
+
+So, it worked. But man, that still sucks. What if we had more subdirectories that depended on being loaded in a
+particular order? This would very quickly get out of hand.
+
+And this is where `Dir.glob` comes in handy. And makes you not hate loops. Everything we just did can be written in one line:
+
+```ruby
+Dir.glob('./{a_folder,x_folder,b_folder}/*.rb').each {|f| require_relative f}
+```
+
+`Dir.glob` is basically a regular expression matcher for file/directory paths. It doesn't handle every regex you can throw at it,
+but it gets the job done for stuff like this way cleaner than our ugly loop. In this case, it iterates through each folder within
+the `{}` and calls `require_relative` every time it encounters a `.rb` file. And if we wanted to, say, include files in a
+different order? It's as simple as changing the order of the directories.
+
+Pretty neat, eh? And while it's functionally doing the exact same thing as our loop (it fact, it's also a loop), I find
+it way simpler to read and far easier to understand. Gotta love easily-digestible one liners.
