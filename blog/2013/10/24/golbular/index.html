@@ -1,0 +1,302 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Golbular - logan computes.</title>
+	<meta name="author" content="Logan Hasson">
+
+	
+	<meta name="description" content="Golbular When running any Ruby application that contains more than one or two files, we generally
+find ourselves writing an environment.rb file to &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="logan computes." type="application/atom+xml">
+	
+	<link rel="canonical" href="http://loganhasson.github.io/blog/2013/10/24/golbular/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!-- Start of Woopra Code -->
+<script>
+(function(){
+    var t,i,e,n=window,o=document,a=arguments,s="script",r=["config","track","identify","visit","push","call"],c=function(){var t,i=this;for(i._e=[],t=0;r.length>t;t++)(function(t){i[t]=function(){return i._e.push([t].concat(Array.prototype.slice.call(arguments,0))),i}})(r[t])};for(n._w=n._w||{},t=0;a.length>t;t++)n._w[a[t]]=n[a[t]]=n[a[t]]||new c;i=o.createElement(s),i.async=1,i.src="//static.woopra.com/js/w.js",e=o.getElementsByTagName(s)[0],e.parentNode.insertBefore(i,e)
+})("woopra");
+
+woopra.config({
+    domain: 'loganhasson.github.io'
+});
+woopra.track();
+</script>
+<!-- End of Woopra Code -->
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("loganhasson@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1><a href="/">logan computes.</a></h1>
+  
+    <h2>diving into code</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/loganhasson" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/loganhasson" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Golbular</h1>
+	<div class="entry-content" itemprop="articleBody"><p>When running any Ruby application that contains more than one or two files, we generally
+find ourselves writing an <code>environment.rb</code> file to handle all of the <code>require</code>&rsquo;s and
+<code>require_relative</code>&rsquo;s for us. And, to be frank, this gets to be a giant pain in the ass,
+especially when you want to include files in a particular order. Luckily, there is a
+better way! Or, I guess I shouldn&rsquo;t say better, but way, way easier.</p>
+
+<p>Let&rsquo;s imagine we have the following directory structure.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>glob
+</span><span class='line'>├── a_folder
+</span><span class='line'>│   ├── file_one.rb
+</span><span class='line'>│   └── file_two.rb
+</span><span class='line'>├── b_folder
+</span><span class='line'>│   └── file_three.rb
+</span><span class='line'>├── environment.rb
+</span><span class='line'>└── x_folder
+</span><span class='line'>    ├── file_five.rb
+</span><span class='line'>    └── file_four.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, let&rsquo;s say in our <code>environment.rb</code> file, we want to include all of the subfiles in
+<code>a_folder</code>, <code>b_folder</code>, and <code>x_folder</code>. To do this, we&rsquo;d have to write a loop like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Dir</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+</span><span class='line'>  <span class="k">next</span> <span class="k">if</span> <span class="n">dir</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">directory?</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Dir</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>      <span class="k">next</span> <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">require</span> <span class="s2">&quot;./</span><span class="si">#{</span><span class="n">dir</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Essentially, it goes through the top level directory, skips any hidden files (those that begin with a period),
+finds everything that is a directory, and requires every file inside of each of them that isn&rsquo;t a hidden file.</p>
+
+<p>Phew.</p>
+
+<p>I&rsquo;ve written a <code>puts</code> statement in every file in this directory that looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello from file one!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But each file has it&rsquo;s own number in the <code>puts</code> statement.</p>
+
+<p>Let&rsquo;s run <code>environment.rb</code> and see what happens:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Hello from file one!
+</span><span class='line'>Hello from file two!
+</span><span class='line'>Hello from file three!
+</span><span class='line'>Hello from file five!
+</span><span class='line'>Hello from file four!
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So it did what we expected&hellip;it included every file, and it did it in <em>folder order</em>. What happens, though,
+if everything working properly depended on the files in <code>b_folder</code> loading before the files in <code>a_folder</code>. Say, for instance,
+that the files in <code>b_folder</code> make use of constants that are defined in files in <code>a_folder</code>. We&rsquo;d have to adjust our loop:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">folders</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;b_folder&quot;</span><span class="p">,</span> <span class="s2">&quot;a_folder&quot;</span><span class="p">,</span> <span class="s2">&quot;x_folder&quot;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">require_stuff</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">array</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">folder</span><span class="o">|</span>
+</span><span class='line'>    <span class="no">Dir</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="s2">&quot;./</span><span class="si">#{</span><span class="n">folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>      <span class="k">next</span> <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">require</span> <span class="s2">&quot;./</span><span class="si">#{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here, we put the loop into a method, and make an array of the folders we want to loop through. By changing the order of the
+folders, we can change the order the files are loaded in. Here&rsquo;s the output from running that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Hello from file three!
+</span><span class='line'>Hello from file one!
+</span><span class='line'>Hello from file two!
+</span><span class='line'>Hello from file five!
+</span><span class='line'>Hello from file four!
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, it worked. But man, that still sucks. What if we had more subdirectories that depended on being loaded in a
+particular order? This would very quickly get out of hand.</p>
+
+<p>And this is where <code>Dir.glob</code> comes in handy. And makes you not hate loops. Everything we just did can be written in one line:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;./{a_folder,x_folder,b_folder}/*.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">require_relative</span> <span class="n">f</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Dir.glob</code> is basically a regular expression matcher for file/directory paths. It doesn&rsquo;t handle every regex you can throw at it,
+but it gets the job done for stuff like this way cleaner than our ugly loop. In this case, it iterates through each folder within
+the <code>{}</code> and calls <code>require_relative</code> every time it encounters a <code>.rb</code> file. And if we wanted to, say, include files in a
+different order? It&rsquo;s as simple as changing the order of the directories.</p>
+
+<p>Pretty neat, eh? And while it&rsquo;s functionally doing the exact same thing as our loop (it fact, it&rsquo;s also a loop), I find
+it way simpler to read and far easier to understand. Gotta love easily-digestible one liners.</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Logan Hasson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
