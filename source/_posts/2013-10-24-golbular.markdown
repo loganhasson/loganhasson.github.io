@@ -98,8 +98,20 @@ particular order? This would very quickly get out of hand.
 And this is where `Dir.glob` comes in handy. And makes you not hate loops. Everything we just did can be written in one line:
 
 ```ruby
-Dir.glob('./{a_folder,x_folder,b_folder}/*.rb').each {|f| require f}
+Dir.glob('./{b_folder,a_folder,x_folder}/*.rb').each {|f| require f}
 ```
+
+And our output?
+
+```bash
+Hello from file three!
+Hello from file one!
+Hello from file two!
+Hello from file five!
+Hello from file four!
+```
+
+That looks pretty darn identical to me! Sweet.
 
 `Dir.glob` is basically a regular expression matcher for file/directory paths. It doesn't handle every regex you can throw at it,
 but it gets the job done for stuff like this way cleaner than our ugly loop. In this case, it iterates through each folder within
