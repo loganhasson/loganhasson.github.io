@@ -4,7 +4,7 @@
   <title><![CDATA[logan computes.]]></title>
   <link href="http://loganhasson.github.io/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2013-10-24T12:06:08-04:00</updated>
+  <updated>2013-10-24T12:08:41-04:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -151,9 +151,26 @@ particular order? This would very quickly get out of hand.</p>
 <p>And this is where <code>Dir.glob</code> comes in handy. And makes you not hate loops. Everything we just did can be written in one line:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;./{a_folder,x_folder,b_folder}/*.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="nb">require</span> <span class="n">f</span><span class="p">}</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;./{b_folder,a_folder,x_folder}/*.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="nb">require</span> <span class="n">f</span><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>And our output?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Hello from file three!
+</span><span class='line'>Hello from file one!
+</span><span class='line'>Hello from file two!
+</span><span class='line'>Hello from file five!
+</span><span class='line'>Hello from file four!
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That looks pretty darn identical to me! Sweet.</p>
 
 <p><code>Dir.glob</code> is basically a regular expression matcher for file/directory paths. It doesn&rsquo;t handle every regex you can throw at it,
 but it gets the job done for stuff like this way cleaner than our ugly loop. In this case, it iterates through each folder within
