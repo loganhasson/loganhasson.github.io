@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Golbular"
+title: "Globular"
 date: 2013-10-24 08:41
 comments: true
 categories: 
