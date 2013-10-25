@@ -5,7 +5,7 @@ date: 2013-10-23 10:56
 comments: true
 categories: ruby, erb, binding, scope
 ---
-When getting started with ERB (Evaluated Ruby), you'll undoubtedly come accross a weird
+When getting started with ERB (Embeded Ruby), you'll undoubtedly come accross a weird
 little thing called `binding`. It won't pop up all the time, but you'll be minding your own business
 one day, reading tutorials, when suddenly you'll see this:
 
