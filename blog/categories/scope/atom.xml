@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scope | logan computes.]]></title>
   <link href="http://loganhasson.github.io/blog/categories/scope/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2013-10-24T17:29:50-04:00</updated>
+  <updated>2013-10-25T10:23:19-04:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -18,7 +18,7 @@
     <link href="http://loganhasson.github.io/blog/2013/10/23/all-bound-up/"/>
     <updated>2013-10-23T10:56:00-04:00</updated>
     <id>http://loganhasson.github.io/blog/2013/10/23/all-bound-up</id>
-    <content type="html"><![CDATA[<p>When getting started with ERB (Evaluated Ruby), you&rsquo;ll undoubtedly come accross a weird
+    <content type="html"><![CDATA[<p>When getting started with ERB (Embeded Ruby), you&rsquo;ll undoubtedly come accross a weird
 little thing called <code>binding</code>. It won&rsquo;t pop up all the time, but you&rsquo;ll be minding your own business
 one day, reading tutorials, when suddenly you&rsquo;ll see this:</p>
 
