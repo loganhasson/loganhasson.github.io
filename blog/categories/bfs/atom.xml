@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bfs, | logan computes.]]></title>
   <link href="http://loganhasson.github.io/blog/categories/bfs/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2014-02-14T07:32:38-05:00</updated>
+  <updated>2014-02-14T07:46:21-05:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -30,6 +30,8 @@
 <li>Average Number of Neighbors: 2.023</li>
 </ol>
 
+
+<p>Note about the image at the top: The larger and more skewed towards red a particular tweet is, the more link backs it has.</p>
 
 <p>Code available here: <a href="https://github.com/loganhasson/twitter-link-chain">Fork and Pull Request Away!</a></p>
 
