@@ -18,6 +18,8 @@ I used Breadth-first Search to map the link chain that's currently making its wa
 
 Code available here: [Fork and Pull Request Away!](https://github.com/loganhasson/twitter-link-chain)
 
+Oh, and for the record, it all started [here](https://twitter.com/BenHowe/statuses/433249756006346752) with a link to a 404 page.
+
 # Intro
 
 Like many of you, the past few days my Twitter feed was inundated with several tweets claiming to link to something so shocking and controversial I had to see it *right now*. I'm not usually one to fall for obvious link bait, but I gave one a go.
