@@ -6,7 +6,7 @@ comments: true
 categories: bfs, algorithms, twitter, viral, ruby
 ---
 
-![Map of Twitter Link Chain](http://i460.photobucket.com/albums/qq324/lhvio89/twitter_link_chain_jpg_small.jpg)
+![Map of Twitter Link Chain](http://i460.photobucket.com/albums/qq324/lhvio89/feb_14_small_png.png)
 
 ### TL;DR
 
@@ -19,6 +19,10 @@ I used Breadth-first Search to map the link chain that's currently making its wa
 Code available here: [Fork and Pull Request Away!](https://github.com/loganhasson/twitter-link-chain)
 
 Oh, and for the record, it all started [here](https://twitter.com/BenHowe/statuses/433249756006346752) with a link to a 404 page.
+
+### Update: Feb 14, 7:30am
+
+The graph has a ton of new nodes now. The stats are pretty similar, though the characteristic length is abou 17 now, and the furthest degree of separation is about 44. If you'd like to play around with a high-res version of that image above, check it out [here](https://www.dropbox.com/s/soz79f1nnccnrds/feb_14_pdf.pdf).
 
 # Intro
 
