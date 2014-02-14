@@ -3,7 +3,7 @@ layout: post
 title: "Link Bait: Mapping the Spread of the Epic Twitter Link Chain"
 date: 2014-02-13 21:29
 comments: true
-categories: breadth-first search, algorithms, twitter, viral, ruby
+categories: bfs, algorithms, twitter, viral, ruby
 ---
 
 # Link Bait: Mapping the Spread of the Epic Twitter Link Chain
