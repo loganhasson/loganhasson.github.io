@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bfs, | logan computes.]]></title>
   <link href="http://loganhasson.github.io/blog/categories/bfs/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2014-02-14T07:46:21-05:00</updated>
+  <updated>2014-02-14T11:45:58-05:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -18,28 +18,28 @@
     <link href="http://loganhasson.github.io/blog/2014/02/13/link-bait-mapping-the-spread-of-the-epic-twitter-link-chain/"/>
     <updated>2014-02-13T21:29:00-05:00</updated>
     <id>http://loganhasson.github.io/blog/2014/02/13/link-bait-mapping-the-spread-of-the-epic-twitter-link-chain</id>
-    <content type="html"><![CDATA[<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/feb_14_small_png.png" alt="Map of Twitter Link Chain" /></p>
+    <content type="html"><![CDATA[<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/feb_14_noon_small_png.jpg" alt="Map of Twitter Link Chain" /></p>
 
 <h3>TL;DR</h3>
 
 <p>I used Breadth-first Search to map the link chain that&rsquo;s currently making its way around twitter. So far, the data shows:</p>
 
+<p>(This is current as of around 11am on Feb 14, 2014):</p>
+
 <ol>
-<li>Clustering coefficient: 0.003</li>
-<li>Characteristic Path Length: 18.252</li>
-<li>Average Number of Neighbors: 2.023</li>
+<li>Clustering coefficient: 0.002</li>
+<li>Characteristic Path Length: 19.995</li>
+<li>Average Number of Neighbors: 2.016</li>
 </ol>
 
 
 <p>Note about the image at the top: The larger and more skewed towards red a particular tweet is, the more link backs it has.</p>
 
+<p>If you&rsquo;d like to play around with a high-res version of that image above, check it out <a href="https://www.dropbox.com/s/q6l0mqbqnljayo6/feb_14_noon_pdf.pdf">here</a>.</p>
+
 <p>Code available here: <a href="https://github.com/loganhasson/twitter-link-chain">Fork and Pull Request Away!</a></p>
 
 <p>Oh, and for the record, it all started <a href="https://twitter.com/BenHowe/statuses/433249756006346752">here</a> with a link to a 404 page.</p>
-
-<h3>Update: Feb 14, 7:30am</h3>
-
-<p>The graph has a ton of new nodes now. The stats are pretty similar, though the characteristic length is abou 17 now, and the furthest degree of separation is about 44. If you&rsquo;d like to play around with a high-res version of that image above, check it out <a href="https://www.dropbox.com/s/soz79f1nnccnrds/feb_14_pdf.pdf">here</a>.</p>
 
 <h1>Intro</h1>
 
