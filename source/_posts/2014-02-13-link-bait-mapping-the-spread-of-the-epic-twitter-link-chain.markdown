@@ -6,25 +6,25 @@ comments: true
 categories: bfs, algorithms, twitter, viral, ruby
 ---
 
-![Map of Twitter Link Chain](http://i460.photobucket.com/albums/qq324/lhvio89/feb_14_small_png.png)
+![Map of Twitter Link Chain](http://i460.photobucket.com/albums/qq324/lhvio89/feb_14_noon_small_png.jpg)
 
 ### TL;DR
 
 I used Breadth-first Search to map the link chain that's currently making its way around twitter. So far, the data shows:
 
-1. Clustering coefficient: 0.003
-2. Characteristic Path Length: 18.252
-3. Average Number of Neighbors: 2.023
+(This is current as of around 11am on Feb 14, 2014):
+
+1. Clustering coefficient: 0.002
+2. Characteristic Path Length: 19.995
+3. Average Number of Neighbors: 2.016
 
 Note about the image at the top: The larger and more skewed towards red a particular tweet is, the more link backs it has.
+
+If you'd like to play around with a high-res version of that image above, check it out [here](https://www.dropbox.com/s/q6l0mqbqnljayo6/feb_14_noon_pdf.pdf).
 
 Code available here: [Fork and Pull Request Away!](https://github.com/loganhasson/twitter-link-chain)
 
 Oh, and for the record, it all started [here](https://twitter.com/BenHowe/statuses/433249756006346752) with a link to a 404 page.
-
-### Update: Feb 14, 7:30am
-
-The graph has a ton of new nodes now. The stats are pretty similar, though the characteristic length is abou 17 now, and the furthest degree of separation is about 44. If you'd like to play around with a high-res version of that image above, check it out [here](https://www.dropbox.com/s/soz79f1nnccnrds/feb_14_pdf.pdf).
 
 # Intro
 
