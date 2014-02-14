@@ -16,6 +16,8 @@ I used Breadth-first Search to map the link chain that's currently making its wa
 2. Characteristic Path Length: 18.252
 3. Average Number of Neighbors: 2.023
 
+Note about the image at the top: The larger and more skewed towards red a particular tweet is, the more link backs it has.
+
 Code available here: [Fork and Pull Request Away!](https://github.com/loganhasson/twitter-link-chain)
 
 Oh, and for the record, it all started [here](https://twitter.com/BenHowe/statuses/433249756006346752) with a link to a 404 page.
