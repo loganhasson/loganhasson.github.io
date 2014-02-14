@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: ruby | logan computes.]]></title>
-  <link href="http://loganhasson.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <title><![CDATA[Category: algorithms, | logan computes.]]></title>
+  <link href="http://loganhasson.github.io/blog/categories/algorithms/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
   <updated>2014-02-13T22:54:14-05:00</updated>
   <id>http://loganhasson.github.io/</id>

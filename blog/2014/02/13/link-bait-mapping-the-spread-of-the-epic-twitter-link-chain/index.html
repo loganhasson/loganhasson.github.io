@@ -1,0 +1,400 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Link Bait: Mapping the Spread of the Epic Twitter Link Chain - logan computes.</title>
+	<meta name="author" content="Logan Hasson">
+
+	
+	<meta name="description" content="Link Bait: Mapping the Spread of the Epic Twitter Link Chain Link Bait: Mapping the Spread of the Epic Twitter Link Chain TL;DR I used Breadth-first &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="logan computes." type="application/atom+xml">
+	
+	<link rel="canonical" href="http://loganhasson.github.io/blog/2014/02/13/link-bait-mapping-the-spread-of-the-epic-twitter-link-chain/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!-- Start of Woopra Code -->
+<script>
+(function(){
+    var t,i,e,n=window,o=document,a=arguments,s="script",r=["config","track","identify","visit","push","call"],c=function(){var t,i=this;for(i._e=[],t=0;r.length>t;t++)(function(t){i[t]=function(){return i._e.push([t].concat(Array.prototype.slice.call(arguments,0))),i}})(r[t])};for(n._w=n._w||{},t=0;a.length>t;t++)n._w[a[t]]=n[a[t]]=n[a[t]]||new c;i=o.createElement(s),i.async=1,i.src="//static.woopra.com/js/w.js",e=o.getElementsByTagName(s)[0],e.parentNode.insertBefore(i,e)
+})("woopra");
+
+woopra.config({
+    domain: 'loganhasson.github.io'
+});
+woopra.track();
+</script>
+<!-- End of Woopra Code -->
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("loganhasson@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1><a href="/">logan computes.</a></h1>
+  
+    <h2>diving into code</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/loganhasson" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/loganhasson" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Link Bait: Mapping the Spread of the Epic Twitter Link Chain</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Link Bait: Mapping the Spread of the Epic Twitter Link Chain</h1>
+
+<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/twitter_link_chain_jpg_small.jpg" alt="Map of Twitter Link Chain" /></p>
+
+<h3>TL;DR</h3>
+
+<p>I used Breadth-first Search to map the link chain that&rsquo;s currently making its way around twitter. So far, the data shows:</p>
+
+<ol>
+<li>Clustering coefficient: 0.003</li>
+<li>Characteristic Path Length: 18.252</li>
+<li>Average Number of Neighbors: 2.023</li>
+</ol>
+
+
+<p>Code available here: <a href="https://github.com/loganhasson/twitter-link-chain">Fork and Pull Request Away!</a></p>
+
+<h2>Intro</h2>
+
+<p>Like many of you, the past few days my Twitter feed was inundated with several tweets claiming to link to something so shocking and controversial I had to see it <em>right now</em>. I&rsquo;m not usually one to fall for obvious link bait, but I gave one a go.</p>
+
+<p>And then I clicked on the link in the status I was led to.</p>
+
+<p>And I clicked on the link there.</p>
+
+<p>And then I caught on. I&rsquo;d fallen for Twitter&rsquo;s newest bit of viral fun: the link chain.</p>
+
+<h2>What is this link chain?</h2>
+
+<p>If you haven&rsquo;t see it, there are several links going around that send you on a wild goose chase through the world of Twitter. Somebody posts a link, claiming its points to some extremely shocking story, but it really just links to another twitter status. That status, then, links to another. And so on and so forth.</p>
+
+<p>And the prize at the end of the tunnel? A 404 error. Nice.</p>
+
+<p>I didn&rsquo;t end up jumping in and spreading the link forward, but it did get me thinking: what must this massive link chain look like? How does something like this get started, and how far does it spread?</p>
+
+<p>Enter Ruby and Breadth-first Search.</p>
+
+<h2>Mapping the Chain: The Problem</h2>
+
+<p>I&rsquo;d played around with <a href="http://en.wikipedia.org/wiki/Breadth-first_search">Breadth-first Search</a> once or twice before, and I figured this problem felt like a great use case for the algorithm. If you think about this chain of tweets as a series of nodes and neighbors, it breaks down somewhat like this:</p>
+
+<ol>
+<li>Take any random tweet that has one of these links in it</li>
+<li>It&rsquo;s neighbors are any tweets that, in turn, link back to it</li>
+</ol>
+
+
+<p>Seems pretty straight forward, right?</p>
+
+<p>Not so fast. There were two primary problems that arose quite quickly:</p>
+
+<ol>
+<li>How in the heck do I find the tweets that link back to a particular status?</li>
+<li>A Breadth-first search (from here on out, to be referred to as BFS) sort of assumes you are starting at the &ldquo;beginning&rdquo; of something and expanding from there. I was actually starting somewhere in the middle of this chain.</li>
+</ol>
+
+
+<p>The first problem turned out to be pretty easy to solve, after realizing one particular quirk of the Twitter search API.</p>
+
+<h2>Finding the Neighbors</h2>
+
+<p>Since every tweet that links back to a particular status, by definition, contains that status&#8217; link as some text, I could just do a search for the tweet of interest&rsquo;s URL.</p>
+
+<p>There was only one problem with that: the Twitter search API is case sensitive, while usernames <em>aren&rsquo;t</em>. Therefore, one tweet&rsquo;s status could be linked to in any number of ways.</p>
+
+<p>The solution? Search for the tweet&rsquo;s ID. Duh. Sadly, that took my a couple of hours to figure out.</p>
+
+<h2>Going Back to the Beginning</h2>
+
+<p>The other problem took a bit more time to figure out. It turns out, though, that the key to it was the realization that it was, in fact, pretty simple to figure out where the beginning of the whole link chain was.</p>
+
+<p>I just had to write a simple bit of code to get back to the beginning from any tweet in the chain:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">get_first_tweet_hash</span><span class="p">(</span><span class="n">starting_status_url</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">id</span> <span class="o">=</span> <span class="n">starting_status_url</span><span class="o">[</span><span class="sr">/(\d)+$/</span><span class="o">].</span><span class="n">to_i</span>
+</span><span class='line'>  <span class="n">link</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">while</span> <span class="n">link</span>
+</span><span class='line'>    <span class="k">begin</span>
+</span><span class='line'>      <span class="n">tweet</span> <span class="o">=</span> <span class="no">CLIENT_ONE</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">screen_name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">tweet</span><span class="o">.</span><span class="n">urls</span>
+</span><span class='line'>        <span class="nb">id</span> <span class="o">=</span> <span class="n">tweet</span><span class="o">.</span><span class="n">urls</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">expanded_url</span><span class="o">.</span><span class="n">to_s</span><span class="o">[</span><span class="sr">/(\d)+$/</span><span class="o">].</span><span class="n">to_i</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="n">link</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">rescue</span>
+</span><span class='line'>      <span class="n">link</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">screen_name</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:created_at</span> <span class="o">=&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">created_at</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:retweet</span> <span class="o">=&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">retweet?</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:retweet_count</span> <span class="o">=&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">retweet_count</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:location</span> <span class="o">=&gt;</span> <span class="kp">nil</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(Note: <code>CLIENT_ONE</code> is my interface to the <a href="https://github.com/sferik/twitter">Twitter Gem</a>.)</p>
+
+<p>Essentially, I look at a status, grab the link of that status, and go look at it. I do this until I find no more links. And then I have the beginning. I had to throw in the rather ugly <code>begin rescue</code> block because the last tweet happens to link to a <code>404</code>.</p>
+
+<p>Once I had the starting tweet, it was just a matter of starting the search.</p>
+
+<h2>BFS</h2>
+
+<p>I&rsquo;ll let you read up on BFS, but here&rsquo;s the code that actually runs the search:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">map_graph</span>
+</span><span class='line'>  <span class="k">while</span> <span class="o">!</span><span class="n">tweet_queue</span><span class="o">.</span><span class="n">empty?</span>
+</span><span class='line'>    <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweet_queue</span><span class="o">.</span><span class="n">shift</span>
+</span><span class='line'>    <span class="n">tweet</span><span class="o">.</span><span class="n">get_neighbors</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">neighbor</span><span class="o">|</span>
+</span><span class='line'>      <span class="k">if</span> <span class="o">!</span><span class="n">visited?</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">add_to_path</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">add_to_arrays</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In simple terms, you take a node and throw it into a queue. Then, you find all of its neighbors and throw them into a queue. Then, you take the first node from the queue and repeat. In this way, you traverse a graph, level by level, until you reach some pre-determined end point, or until there are no more nodes.</p>
+
+<h2>Plotting the Graph</h2>
+
+<p>I discovered the <em>amazing</em> <a href="https://github.com/seattlerb/graph">Graph Gem</a> which makes plotting directional graphs insanely simple. You get a <code>digraph</code> method that accepts a block, in which you define edges. At the end of the method, you can say something like <code>save "file", "png"</code> and you get a nice bit of output. You are also left with useful data in <code>.dot</code> file format, which is easily imported into other visualization software. (I happened to use Cytoscape for the graph at the top of this post.)</p>
+
+<p>Here&rsquo;s the code to plot the data:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">display_graph</span><span class="p">(</span><span class="n">traveled_path</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">digraph</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">traveled_path</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pair</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">start</span> <span class="o">=</span> <span class="n">pair</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="kp">nil</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">start</span>
+</span><span class='line'>        <span class="n">edge</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">pair</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="n">username</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">pair</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="n">created_at</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%a %b %e - %k:%M&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;Start&quot;</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="n">edge</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">pair</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="n">username</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">pair</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="n">created_at</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%a %b %e - %k:%M&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">pair</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="n">username</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">pair</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="n">created_at</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%a %b %e - %k:%M&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">save</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What makes this especially easy is the fact that the BFS algorithm leaves me with an array that contains the entire history of the graph in parent &ndash; child pairs. All it takes is a quick iteration through that array, and you have a fancy graph.</p>
+
+<h2>Considerations</h2>
+
+<p>There were a couple of logical considerations that had to be made in the course of running this search.</p>
+
+<p>The biggest problem was dealing with the Twitter search API. It happens to only return about 100 results per search, and there isn&rsquo;t any really good way to figure out the next page of results. You aren&rsquo;t immediately made aware of the fact that there <em>is</em> a next page of results even. And without checking all results, you are bound to miss large portions of the graph.</p>
+
+<p>To deal with this, I accessed a private method in the <code>Twitter::SearchResults</code> class of the Twitter Gem (linked to above). This rather sweet method returns the correct options for a search that would return the next page of results. So, in the <code>get_neighbors</code> method, I needed to keep making the same search (for a given status id) until there were no more pages of results.</p>
+
+<p>The other problem was dealing with people who decided to throw recursive loops into the mix. Several users would jump into the chain, and then link to another status of their own. This created mini loops. Easy solve: reject any neighbors that have the same username as the current tweet.</p>
+
+<h2>Current Issues</h2>
+
+<p>There are still some problems to solve. The most major of which is the rate limiting that Twitter has on its search API. As it stands, it is about 180 requests per 15 minute block. For a graph of this size, that&rsquo;s not nearly enough.</p>
+
+<p>The other problem, which I&rsquo;ve created a stop-gap for, is the issue of how to store progress if graph traversal has to go in spurts. Using <code>YAML::Store</code>, I keep track of the current node and the current state of all queues. This seems to work, but I fear that tweets get lost in between traversals.</p>
+
+<h2>Future Plans</h2>
+
+<p>I&rsquo;m hoping to graph all of this data in much more meaningful ways. Since I&rsquo;m collecting location data (for tweets that have it) and temporal data, it&rsquo;d be really awesome to create an interactive, geo-located graph of this link chain spreading over time and distance. Furthermore, I am collecting retweet information, and am hoping to find meaningful ways to display that.</p>
+
+<h2>Help!</h2>
+
+<p>This is a pretty large map, and it&rsquo;s pretty difficult to traverse it 180 requests at a time, running a cron job every 20 minutes. Because the data is being stored in YAML format, and the edges are stored in simple node pairs in a <code>.dot</code> file, it&rsquo;d be pretty easy to distribute the graphing of this. Merging multiple <code>.dot</code> files would be rather trivial. If the larger open source community could jump on this and start graphing from different points in the map, we could make quick work of it.</p>
+
+<h2>More Pretty Pictures</h2>
+
+<p>Full sized images can be found <a href="https://www.dropbox.com/sh/izf9dt28ys0hq6y/yTeVh9G8Nn">here</a>. They are all pretty similar, but give a decently different view of the graph that I decided to post them all. There is also a PDF which allows for much more exploration of the graph.</p>
+
+<h2>Nerdy Graphs</h2>
+
+<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/neighborhood-connectivity.png" alt="Neighborhood Connectivity" /></p>
+
+<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/in-degree-distribution-1.png" alt="In-Degree Distribution" /></p>
+
+<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/average-clustering-coef-distribution-1.png" alt="Average Clustering Coefficient Distribution" /></p>
+
+<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/shortest-path-length-distribution.png" alt="Shortest Path Length Distribution" /></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Logan Hasson -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
