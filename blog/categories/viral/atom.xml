@@ -4,7 +4,7 @@
   <title><![CDATA[Category: viral, | logan computes.]]></title>
   <link href="http://loganhasson.github.io/blog/categories/viral/atom.xml" rel="self"/>
   <link href="http://loganhasson.github.io/"/>
-  <updated>2014-02-13T23:08:09-05:00</updated>
+  <updated>2014-02-14T07:32:38-05:00</updated>
   <id>http://loganhasson.github.io/</id>
   <author>
     <name><![CDATA[Logan Hasson]]></name>
@@ -18,7 +18,7 @@
     <link href="http://loganhasson.github.io/blog/2014/02/13/link-bait-mapping-the-spread-of-the-epic-twitter-link-chain/"/>
     <updated>2014-02-13T21:29:00-05:00</updated>
     <id>http://loganhasson.github.io/blog/2014/02/13/link-bait-mapping-the-spread-of-the-epic-twitter-link-chain</id>
-    <content type="html"><![CDATA[<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/twitter_link_chain_jpg_small.jpg" alt="Map of Twitter Link Chain" /></p>
+    <content type="html"><![CDATA[<p><img src="http://i460.photobucket.com/albums/qq324/lhvio89/feb_14_small_png.png" alt="Map of Twitter Link Chain" /></p>
 
 <h3>TL;DR</h3>
 
@@ -34,6 +34,10 @@
 <p>Code available here: <a href="https://github.com/loganhasson/twitter-link-chain">Fork and Pull Request Away!</a></p>
 
 <p>Oh, and for the record, it all started <a href="https://twitter.com/BenHowe/statuses/433249756006346752">here</a> with a link to a 404 page.</p>
+
+<h3>Update: Feb 14, 7:30am</h3>
+
+<p>The graph has a ton of new nodes now. The stats are pretty similar, though the characteristic length is abou 17 now, and the furthest degree of separation is about 44. If you&rsquo;d like to play around with a high-res version of that image above, check it out <a href="https://www.dropbox.com/s/soz79f1nnccnrds/feb_14_pdf.pdf">here</a>.</p>
 
 <h1>Intro</h1>
 
